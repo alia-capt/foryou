@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untuk Kamu ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            font-family: 'Quicksand', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #card {
+            text-align: center;
+            width: 85%;
+            max-width: 400px;
+            padding: 20px;
+            transition: all 0.5s ease;
+        }
+
+        img {
+            width: 180px;
+            height: 180px;
+            margin-bottom: 25px;
+            border-radius: 15px;
+            object-fit: contain;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            min-height: 60px; /* Biar posisi tombol nggak lompat saat teks berubah */
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            position: relative;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Quicksand', sans-serif;
+            transition: 0.2s;
+        }
+
+        #btn-yes {
+            background-color: #ff4d6d;
+            color: white;
+        }
+
+        #btn-no {
+            background-color: #444;
+            color: #ccc;
+        }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <div id="card">
+        <img id="main-gif" src="1..gif" alt="GIF">
+        
+        <h2 id="main-text">Masih marah kah sama aku? 🥺</h2>
+
+        <div class="btn-group">
+            <button id="btn-yes" onclick="nextStep()">Gak lagi kok</button>
+            <button id="btn-no" onmouseover="moveBtn()" onclick="moveBtn()">Masih!</button>
+        </div>
+    </div>
+
+    <script>
+        const mainGif = document.getElementById('main-gif');
+        const mainText = document.getElementById('main-text');
+        const btnNo = document.getElementById('btn-no');
+        const btnYes = document.getElementById('btn-yes');
+
+        let step = 0;
+
+        // 1. DAFTAR GAMBAR (Ganti dengan link GIF pilihanmu)
+        const images = [
+            "1..gif", // GIF Awal (Tanya marah/nggak)
+            "2.gif", // GIF Pas dimaafin (Senang)
+            "3.gif"  // GIF Akhir (Love you)
+        ];
+
+        // 2. LOGIKA TOMBOL LARI (Tombol "Masih!")
+        function moveBtn() {
+            const x = Math.random() * (window.innerWidth - btnNo.offsetWidth - 20);
+            const y = Math.random() * (window.innerHeight - btnNo.offsetHeight - 20);
+            
+            btnNo.style.position = 'fixed';
+            btnNo.style.left = x + 'px';
+            btnNo.style.top = y + 'px';
+            
+            // Opsional: ganti teks tombol "Masih!" saat dikejar
+            btnNo.innerText = "masih!";
+        }
+
+        // 3. LOGIKA TRANSISI (Tombol "Gak lagi kok")
+        function nextStep() {
+            step++;
+
+            if (step === 1) {
+                // Tahap 2: Setelah dia klik dimaafin
+                mainGif.src = images[1];
+                mainText.innerText = "Beneran? Janji ya jangan marah lagi? ✨";
+                btnYes.innerText = "Iya Janji ❤️";
+                
+                // Hilangkan tombol "Masih!" biar dia gak bisa nolak lagi
+                btnNo.classList.add('hidden');
+            } 
+            else if (step === 2) {
+                // Tahap Akhir
+                mainGif.src = images[2];
+                mainText.innerHTML = "Makasih Sayang! <br> I Love You So Much! ❤️";
+                btnYes.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
